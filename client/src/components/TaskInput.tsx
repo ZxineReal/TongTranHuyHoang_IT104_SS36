@@ -9,7 +9,6 @@ export default function TaskInput() {
   const [taskName, setTaskName] = useState("");
   const [priority, setPriority] = useState<"HIGH" | "MEDIUM" | "LOW">("MEDIUM");
 
-  // Điền dữ liệu khi có task đang sửa
   useEffect(() => {
     if (editingTask) {
       setTaskName(editingTask.taskName);
@@ -24,13 +23,10 @@ export default function TaskInput() {
     e.preventDefault();
     if (taskName.trim()) {
       if (editingTask) {
-        // Sửa task
         dispatch(updateTask({ ...editingTask, taskName, priority }));
       } else {
-        // Thêm task mới
         dispatch(addTask({ taskName, priority, completed: false }));
       }
-      // Reset form
       setTaskName("");
       setPriority("MEDIUM");
       dispatch(clearEditingTask());
